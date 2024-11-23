@@ -54,7 +54,7 @@ function CodingFacts(){
       // Final execution animation
       setTimeout(
         () => textTypingEffect('Why study programming?', i + 1)
-        ,100
+        ,60
       )
     };
 

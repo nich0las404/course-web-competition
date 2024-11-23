@@ -143,11 +143,11 @@ function CourseDetails(){
     };
     return (
         <div className="course-details-container">
+            <button className="exit-course-btn" onClick={handleExit}>
+                    <i class="fa-solid fa-arrow-left exit-course-btn-i"></i>
+                </button>
             <div className="upper-course-details">
                 <div className={`gif-background`} style={{backgroundImage: `url(${course.background})`}}></div>
-                <button className="exit-course-btn" onClick={handleExit}>
-                    <i class="fa-solid fa-arrow-left"></i>
-                </button>
                 <h1 className="course-title">{course.title}</h1>
             </div>
             <div className="course-details">

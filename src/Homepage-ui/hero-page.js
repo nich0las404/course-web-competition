@@ -1,13 +1,20 @@
 import { useNavigate } from "react-router-dom";
-
+import { useEffect, useState } from "react";
 
 function HeroPage(){
     const navigate = useNavigate();
-
+    const [isLoaded, setIsLoaded] = useState(false);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+          setIsLoaded(true);
+        }, 1000); 
+        return () => clearTimeout(timer); 
+      }, []);
     return (
         <div id="hero-section" className="hero-page">
             <div className="inner-hero-page">
             <div className="gif-background hero-background-animation"></div>
+            <div className={`open-background ${isLoaded ? "open" : ""}`}></div>
             <div className="title-container">
                 <h1 className="title">learn programming for <span className="title-span"> Free</span></h1>
             </div>
