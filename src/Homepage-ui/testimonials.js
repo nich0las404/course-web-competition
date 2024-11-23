@@ -58,7 +58,7 @@ function Testimonials(){
       const observerTitle = new IntersectionObserver((entries) => {
         const entry = entries[0];
         if (entry.isIntersecting && !testiTitleText) {
-          textTypingEffect('What are you waiting for?');
+          textTypingEffect('Here are some of our testimonials!');
           observerTitle.unobserve(ref.current);
         }
       }, {
@@ -101,90 +101,67 @@ function Testimonials(){
         if (i === text.length - 1) {
           return;
         }
-        setTimeout(() => textTypingEffect(text, i + 1), 80);
+        setTimeout(() => textTypingEffect(text, i + 1), 60);
       }
     }, [testiTitleText, testiContainer]);
+
+    const [currentIndex, setCurrentIndex] = useState(0); // Track the current testimonial index
+    const [fadeClass, setFadeClass] = useState('fade fade-in');
+  const handleNext = () => {
+    applyFadeEffect();
+    setTimeout(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % people.length);
+    }, 200);
+  };
+
+  const handlePrev = () => {
+    applyFadeEffect();
+    setTimeout(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === 0 ? people.length - 1 : prevIndex - 1
+      );
+    }, 200); // Wait for fade-out to complete before switching
+  };
+
+  const applyFadeEffect = () => {
+    setFadeClass('fade'); // Trigger fade-out
+    setTimeout(() => setFadeClass('fade fade-in'), 200);
+  };
+  
     return(
         <div>
         <div className="testi-title-container">
             <div className="short-horizontal-line short-hori-line2"></div>
             <div className="line line2"></div>
             <h1 className="testi-title" ref={ref}>{testiTitleText}</h1>
-
+          
+          <div className='testi-outer-outer-container'>
+          <div className='testi-outer-container'>
+            <button onClick={handlePrev} className='prev-testi-btn testi-btn'>
+            <i class="fa-solid fa-arrow-left testi-arrow"></i>
+            </button>
             <div className='testimonials-container' ref={testiContainerRef}>
-            <div className={`testimonial-container ${testiContainer? 'testi-animate testi-animate1': ''}`}>
-                <div className='profile-testi-container'>
-                    <img className='profile-img' src={people[0].img}/>
-                    <div className='inner-profile-testi-container'>
-                        <h4 className='testi-name'>{people[0].name}</h4>
-                        <p className='testi-job'>{people[0].job}</p>
-                    </div>
+            <div className={`testimonial-container ${fadeClass}`}>
+                <div className="profile-testi-container">
+                  <img
+                    className="profile-img"
+                    src={people[currentIndex].img}
+                    alt={people[currentIndex].name}
+                  />
+                  <div className="inner-profile-testi-container">
+                    <h4 className="testi-name">{people[currentIndex].name}</h4>
+                    <p className="testi-job">{people[currentIndex].job}</p>
+                  </div>
                 </div>
-                <p className='testi-text'>
-                    {people[0].testi}
-                </p>
-            </div>
-            <div className={`testimonial-container ${testiContainer? 'testi-animate testi-animate2': ''}`}>
-                <div className='profile-testi-container'>
-                    <img className='profile-img' src={people[1].img}/>
-                    <div className='inner-profile-testi-container'>
-                        <h4 className='testi-name'>{people[1].name}</h4>
-                        <p className='testi-job testi-color1'>{people[1].job}</p>
-                    </div>
-                </div>
-                <p className='testi-text'>
-                    {people[1].testi}
-                </p>
-            </div>
-            <div className={`testimonial-container ${testiContainer? 'testi-animate testi-animate3': ''}`}>
-                <div className='profile-testi-container'>
-                    <img className='profile-img' src={people[2].img}/>
-                    <div className='inner-profile-testi-container'>
-                        <h4 className='testi-name'>{people[2].name}</h4>
-                        <p className='testi-job testi-color2'>{people[2].job}</p>
-                    </div>
-                </div>
-                <p className='testi-text'>
-                    {people[2].testi}
-                </p>
-            </div>
-            <div className={`testimonial-container ${testiContainer? 'testi-animate testi-animate4': ''}`}>
-                <div className='profile-testi-container'>
-                    <img className='profile-img' src={people[3].img}/>
-                    <div className='inner-profile-testi-container'>
-                        <h4 className='testi-name'>{people[3].name}</h4>
-                        <p className='testi-job'>{people[3].job}</p>
-                    </div>
-                </div>
-                <p className='testi-text'>
-                    {people[3].testi}
-                </p>
-            </div>
-            <div className={`testimonial-container ${testiContainer? 'testi-animate testi-animate5': ''}`}>
-                <div className='profile-testi-container'>
-                    <img className='profile-img' src={people[4].img}/>
-                    <div className='inner-profile-testi-container'>
-                        <h4 className='testi-name'>{people[4].name}</h4>
-                        <p className='testi-job testi-color1'>{people[4].job}</p>
-                    </div>
-                </div>
-                <p className='testi-text'>
-                    {people[4].testi}
-                </p>
-            </div>
-            <div className={`testimonial-container ${testiContainer? 'testi-animate testi-animate6': ''}`}>
-                <div className='profile-testi-container'>
-                    <img className='profile-img' src={people[5].img}/>
-                    <div className='inner-profile-testi-container'>
-                        <h4 className='testi-name'>{people[5].name}</h4>
-                        <p className='testi-job testi-color2'>{people[5].job}</p>
-                    </div>
-                </div>
-                <p className='testi-text'>
-                    {people[5].testi}
-                </p>
-            </div>
+                <p className="testi-text">{people[currentIndex].testi}</p>
+              </div>
           </div>
+            <button onClick={handleNext} className='next-testi-btn testi-btn'>
+            <i class="fa-solid fa-arrow-right testi-arrow"></i>
+            </button>
+          </div>
+          </div>
+
         </div>
         <div className='slider-container'>
               <ul className='slider'>
